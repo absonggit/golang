@@ -61,5 +61,4 @@ func main() {
 	fmt.Println("排序前: ", slice1)
 	BubbleSort(slice1)
 	fmt.Println("排序后: ", slice1)
-
 }
