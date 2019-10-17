@@ -52,7 +52,7 @@ func WhoSayHi(i Humaner) {
 // 空接口万能类型，保存任意类型的值
 func NullInterface(args ...interface{}) {
 	for _, data := range args {
-		switch value := data.(type) {
+		switch value := data.(type) { // 类型断言
 		case int:
 			fmt.Printf("内容是%v 类型为int\n", value)
 		case string:
