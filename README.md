@@ -27,3 +27,9 @@
 >   2. [json处理](./day5/02_json处理.go)
 >   3. [文件处理](./day5/03_文件处理.go)
 >   3. [案例_文件拷贝](./day5/04_案例_文件拷贝.go)
+> - day6
+>   1. [goroutine](./day6/01_goroutine.go)
+>   2. [channel](./day6/02_channel.go)
+>   3. [缓冲channel](./day6/03_缓冲channel.go)
+>   4. [单向channel](./day6/04_单向channel.go)
+>   5. [定时器](./day6/05_定时器.go)
