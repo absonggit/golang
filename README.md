@@ -33,3 +33,5 @@
 >   3. [缓冲channel](./day6/03_缓冲channel.go)
 >   4. [单向channel](./day6/04_单向channel.go)
 >   5. [定时器](./day6/05_定时器.go)
+>   6. [select](./day6/06_select.go)
+>   7. [time_out](./day6/07_time_out.go)
