@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"path/filepath"
 )
 
 func main() {
@@ -15,6 +14,10 @@ func main() {
 		return
 	}
 	fmt.Println("服务器连接成功")
+	msg := `    who 获取当前用户列表
+    rename <newname> 修改当前用户名
+    exit 退出`
+	fmt.Println(msg)
 	defer conn.Close()
 
 	// 输入内容，发送至服务器

@@ -40,3 +40,4 @@
 >   2. [socket_client](./day7/02_tcp_client.go)
 >   3. [send_file](./day7/03_send_file.go)
 >   4. [receive_file](./day7/04_receive_file.go)
+>   5. [chat_server](./day7/05_chat_server.go)
