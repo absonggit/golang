@@ -36,5 +36,7 @@
 >   6. [select](./day6/06_select.go)
 >   7. [time_out](./day6/07_time_out.go)
 > - day7
->   1. [socket_server](./day7/01_socket_server.go)
->   2. [socket_client](./day7/02_socket_client.go)
+>   1. [socket_server](./day7/01_tcp_server.go)
+>   2. [socket_client](./day7/02_tcp_client.go)
+>   3. [send_file](./day7/03_send_file.go)
+>   4. [receive_file](./day7/04_receive_file.go)
