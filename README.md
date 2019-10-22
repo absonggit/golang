@@ -41,3 +41,7 @@
 >   3. [send_file](./day7/03_send_file.go)
 >   4. [receive_file](./day7/04_receive_file.go)
 >   5. [chat_server](./day7/05_chat_server.go)
+> - day8
+>   1. [http_server](./day8/01_http_server.go)
+>   2. [http_client](./day8/02_http_client.go)
+>   3. [爬虫](./day8/03_爬虫.go)
