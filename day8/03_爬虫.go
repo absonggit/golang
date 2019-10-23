@@ -16,9 +16,8 @@ func HttpGet(url string) (result string, err error) {
 	defer resp.Body.Close()
 	buf := make([]byte, 1024*4)
 	for {
-		n, err := resp.Body.Read(buf)
+		n, _ := resp.Body.Read(buf)
 		if n == 0 {
-			fmt.Println("Error:", err)
 			break
 		}
 		result += string(buf[:n])
