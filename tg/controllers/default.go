@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"reflect"
 
 	"github.com/astaxie/beego"
 )
@@ -21,12 +22,24 @@ type Message struct {
 
 func (msg Message) httpPost() {
 
-	url := "https://api.telegram.org/bot" + msg.Token + "/sendMessage?" + "chat_id=" + msg.Chat_id + "&text=" + msg.Message
+	url := "https://api.telegram.org/bot" + msg.Token + "/sendMessage?" + "chat_id=" + msg.Chat_id + "&text=" + msg.Message + "&parse_mode=markdown"
 	req, _ := http.NewRequest("POST", url, nil)
 	res, _ := http.DefaultClient.Do(req)
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
 	fmt.Println(string(body))
+}
+
+func reflectTest(b interface{}) string {
+	var text string
+	rVal := reflect.ValueOf(b).Interface()
+	msg, ok := rVal.(map[string]interface{})
+	if ok {
+		for k, v := range msg {
+			text += fmt.Sprint("`", k, ":` ", "*", v, "*", "%0a")
+		}
+	}
+	return text
 }
 
 func (c *SendController) Post() {
@@ -36,11 +49,10 @@ func (c *SendController) Post() {
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	var message Message
 	message.Token = fmt.Sprint(msg["token"])
 	message.Chat_id = fmt.Sprint(msg["chat_id"])
-	for k, v := range msg["message"].(map[string]interface{}) {
-		message.Message += fmt.Sprintf("%v %v ", k, v)
-	}
-	message.httpPost()
+	message.Message = reflectTest(msg["message"])
+	go message.httpPost()
 }
