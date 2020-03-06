@@ -11,13 +11,15 @@ import (
 	"github.com/astaxie/beego"
 )
 
+// SendController 集成beego控制器
 type SendController struct {
 	beego.Controller
 }
 
+// Message 结构体
 type Message struct {
 	Message string
-	Chat_id string
+	Chatid  string
 	Token   string
 }
 
@@ -62,27 +64,30 @@ func launchawx(m string) {
 }
 
 func (msg Message) httpPost() {
-
-	url := "https://api.telegram.org/bot" + msg.Token + "/sendMessage?" + "chat_id=" + msg.Chat_id + "&text=" + msg.Message + "&parse_mode=markdown"
+	url := "https://api.telegram.org/bot" + msg.Token + "/sendMessage?" + "chat_id=" + msg.Chatid + "&text=" + msg.Message + "&parse_mode=markdown"
 	req, _ := http.NewRequest("POST", url, nil)
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Println(err)
+	}
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
 	fmt.Println(string(body))
 	launchawx(msg.Message)
 }
 
+// Post 请求
 func (c *SendController) Post() {
-	json_data := c.Ctx.Input.RequestBody
+	jsondata := c.Ctx.Input.RequestBody
 	var msg map[string]interface{}
-	err := json.Unmarshal([]byte(json_data), &msg)
+	err := json.Unmarshal([]byte(jsondata), &msg)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	var message Message
 	message.Token = fmt.Sprint(msg["token"])
-	message.Chat_id = fmt.Sprint(msg["chat_id"])
+	message.Chatid = fmt.Sprint(msg["chat_id"])
 	message.Message = fmt.Sprint(msg["message"])
 	go message.httpPost()
 }
