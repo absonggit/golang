@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"strings"
 
 	"github.com/astaxie/beego"
 )
@@ -38,7 +40,27 @@ func launchawx(m string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(data))
+	log.Println("执行AWX job", string(data))
+	awxurl := beego.AppConfig.String("awxurl")
+	log.Println("AWX job api url", awxurl)
+	payload := strings.NewReader(string(data))
+
+	req, err := http.NewRequest("POST", awxrul, payload)
+	if err != nil {
+		log.Println(err)
+	}
+
+	req.Header.Add("content-type", "application/json")
+	req.Header.Add("authorization", "Basic YWRtaW46STAxSWdzVGpxVzRrbHVh")
+	req.Header.Add("cache-control", "no-cache")
+	req.Header.Add("postman-token", "c6de34b2-0697-b41f-9658-88abb96462f3")
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Println(err)
+	}
+	defer res.Body.Close()
+
 }
 
 func (msg Message) httpPost() {
