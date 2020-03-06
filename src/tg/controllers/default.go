@@ -41,11 +41,9 @@ func launchawx(m string) {
 		fmt.Println(err)
 	}
 	log.Println("执行AWX job", string(data))
-	awxurl := beego.AppConfig.String("awxurl")
-	log.Println("AWX job api url", awxurl)
 	payload := strings.NewReader(string(data))
 
-	req, err := http.NewRequest("POST", awxrul, payload)
+	req, err := http.NewRequest("POST", beego.AppConfig.String("awxurl"), payload)
 	if err != nil {
 		log.Println(err)
 	}
