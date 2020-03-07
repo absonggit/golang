@@ -13,7 +13,9 @@ import (
 type SendController struct {
 	beego.Controller
 }
-
+type LaunchjobController struct {
+	beego.Controller
+}
 type Message struct {
 	Message string
 	Chat_id string
@@ -43,4 +45,14 @@ func (c *SendController) Post() {
 	message.Chat_id = fmt.Sprint(msg["chat_id"])
 	message.Message = fmt.Sprint(msg["message"])
 	go message.httpPost()
+}
+
+func (c *LaunchjobController) Post() {
+	json_data := c.Ctx.Input.RequestBody
+	log.Panicln(string(json_data))
+	// var msg map[string]interface{}
+	// err := json.Unmarshal([]byte(json_data), &msg)
+	// if err != nil {
+	// 	log.Println(err)
+	// }
 }

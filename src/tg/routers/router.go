@@ -8,4 +8,5 @@ import (
 
 func init() {
 	beego.Router("/send", &controllers.SendController{})
+	beego.Router("/launchjob", &controllers.LaunchjobController{})
 }
