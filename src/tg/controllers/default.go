@@ -11,7 +11,7 @@ import (
 	"github.com/astaxie/beego"
 )
 
-// SendController 集成beego控制器
+// SendController 继承beego控制器
 type SendController struct {
 	beego.Controller
 }
@@ -73,7 +73,7 @@ func (msg Message) httpPost() {
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
 	fmt.Println(string(body))
-	launchawx(msg.Message)
+	// launchawx(msg.Message)
 }
 
 // Post 请求
