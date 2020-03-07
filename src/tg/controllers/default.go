@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/astaxie/beego"
 )
@@ -49,10 +50,29 @@ func (c *SendController) Post() {
 
 func (c *LaunchjobController) Post() {
 	json_data := c.Ctx.Input.RequestBody
-	log.Panicln(string(json_data))
-	// var msg map[string]interface{}
-	// err := json.Unmarshal([]byte(json_data), &msg)
-	// if err != nil {
-	// 	log.Println(err)
-	// }
+	log.Println(string(json_data))
+	data, err := json.Marshal(string(json_data))
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println("执行AWX job", string(data))
+	payload := strings.NewReader(string(data))
+
+	req, err := http.NewRequest("POST", beego.AppConfig.String("awxurl"), payload)
+	if err != nil {
+		log.Println(err)
+	}
+	req.Header.Add("content-type", "application/json")
+	req.Header.Add("authorization", "Basic YWRtaW46STAxSWdzVGpxVzRrbHVh")
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Println(err)
+	}
+
+	defer res.Body.Close()
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println(string(body))
 }
